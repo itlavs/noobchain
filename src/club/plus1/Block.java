@@ -11,6 +11,7 @@ public class Block {
 
     private String data; // будет храниться текстовое сообщение
     private long timeStapm; // количество милисекунд с 01.01.1970
+    private int nonce;
 
     // Конструктор класса Block
     public Block(String data, String prevHash) {
@@ -22,7 +23,18 @@ public class Block {
 
     // Подсчет хеша с помощью SHA-256
     public String calculateHash() {
-        return Security.SHA256(prevHash + Long.toString(timeStapm) + data);
+        return Security.SHA256(prevHash + Long.toString(timeStapm) + Integer.toString(nonce) + data);
+    }
+
+    // Майнинг
+    public String mineBlock(int difficulty) {
+        String target = new String(new char[difficulty]).replace('\0', '0');
+        while (!hash.substring(0, difficulty).equals(target)){
+            nonce ++;
+            hash = calculateHash();
+        }
+        System.out.println("Блок найден! : " + hash);
+        return hash;
     }
 
     @Override

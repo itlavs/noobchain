@@ -25,6 +25,13 @@ public class Main {
             }
         }
         while (!text.equals(""));
+
+        if(blockchain.isValid()){
+            System.out.println("Блокчейн корректен: ");
+        } else {
+            System.out.println("Блокчейн некорректен: ");
+        }
+        System.out.println();
         System.out.println(blockchain.toString());
     }
 }
