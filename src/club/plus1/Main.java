@@ -1,6 +1,8 @@
 package club.plus1;
 
+import java.sql.SQLOutput;
 import java.util.Scanner;
+
 
 public class Main {
 
@@ -11,16 +13,18 @@ public class Main {
         Scanner in = new Scanner(System.in);
         String text;
         String hash = "0";
+        Chain blockchain = new Chain();
 
         // Добавляем блоки по каждой введённой строке и тут же выводим созданный объект
         do {
             text = in.nextLine();
             if (!text.equals("")) {
-                Block block = new Block(text, hash);
-                hash = block.hash;
-                System.out.println("Добавлен блок:\n" + block.toString());
+                hash = blockchain.add(text, hash);
+                System.out.println("Добавлен блок:");
+                System.out.println(blockchain.last().toString());
             }
         }
         while (!text.equals(""));
+        System.out.println(blockchain.toString());
     }
 }
