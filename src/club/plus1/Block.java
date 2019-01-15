@@ -13,9 +13,13 @@ public class Block {
     // Конструктор класса Block
     public Block(String data, String prevHash) {
         this.data = data;
-        this.hash = prevHash + "0"; // Временное решение, пока не реализована хеш-функция
         this.prevHash = prevHash;
         this.timeStapm = new Date().getTime();
+        this.hash = calculateHash();
+    }
+
+    public String calculateHash() {
+        return Security.SHA256(prevHash + Long.toString(timeStapm) + data);
     }
 
     // Временное решение для удобства тестирования
