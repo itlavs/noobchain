@@ -20,9 +20,9 @@ public class Block {
         this.hash = calculateHash();
     }
 
-    // Подсчет хеша с помощью SHA-256
+    // Подсчет хеша блока с помощью SHA-256
     public String calculateHash() {
-        return Security.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
+        return SecurityUtils.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
     }
 
     // Майнинг
