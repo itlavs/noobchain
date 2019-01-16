@@ -8,12 +8,14 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Подготовка консоли и текущего хеша
+        // Подготовка консоли
         System.out.println("Для добавления блока напишите любой текст и нажмите Enter, либо нажмите Enter в пустой строке для выхода:");
         Scanner in = new Scanner(System.in);
         String text;
+
+        // подготовка блокчейна
         String hash = "0";
-        Chain blockchain = new Chain();
+        Chain blockchain = Chain.get();
 
         // Добавляем блоки по каждой введённой строке и тут же выводим созданный объект
         do {
@@ -31,7 +33,6 @@ public class Main {
         } else {
             System.out.println("Блокчейн некорректен: ");
         }
-        System.out.println();
         System.out.println(blockchain.toString());
     }
 }

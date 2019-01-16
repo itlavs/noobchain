@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 
 public class Security {
 
+    // Хеширование строки по алгоритму SHA256
     public static String SHA256(String input){
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
