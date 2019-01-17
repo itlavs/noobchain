@@ -73,7 +73,4 @@ public class Algoritms {
             throw new RuntimeException(e);
         }
     }
-
-    public void addProvider(){
-    }
 }
