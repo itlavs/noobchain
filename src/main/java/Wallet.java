@@ -1,5 +1,3 @@
-package club.plus1;
-
 import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;

@@ -1,5 +1,3 @@
-package club.plus1;
-
 import java.security.Security;
 
 public class Main {

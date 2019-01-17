@@ -1,5 +1,3 @@
-package club.plus1;
-
 public class TransactionInput {
 
     public String outputHash;           // Хеш связанной выходной транзакции

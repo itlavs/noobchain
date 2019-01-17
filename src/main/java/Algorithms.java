@@ -1,5 +1,3 @@
-package club.plus1;
-
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
