@@ -47,4 +47,60 @@ public class Transaction {
         return Algoritms.verifySign(from, data, sign);
     }
 
+    // Возвращает "истина" если можно создать транзакцию
+    public boolean processTransaction(){
+        if(verifySign() == false){
+            System.out.println("#Не удалось проверить подпись");
+            return false;
+        }
+
+        // Сбор входов транзакции, с проверкой, что они не потрачены
+        for (TransactionInput i : inputs) {
+            i.output = Chain.unspentOutputs.get(i.outputHash);
+        }
+
+        // Проверка размера транзакции
+        if(getInputsValue() < Chain.minimumTransaction){
+            System.out.println("#Недостаточно средств на входе транзакции: " + getInputsValue());
+            return false;
+        }
+
+        // Созание выходов транзакции
+        float leftOver = getInputsValue() - value;
+        hash = calculateHash();
+        outputs.add(new TransactionOutput(this.from, value, hash));
+        outputs.add(new TransactionOutput(this.to, leftOver, hash));
+
+        // Выходы транзакции добавляются в непотраченные
+        for(TransactionOutput o : outputs){
+            Chain.unspentOutputs.put(o.hash, o);
+        }
+
+        // Выходы, связанные с входами транзакции удаляются из списка не потраченного, т.к. они потрачены
+        for(TransactionInput i : inputs){
+            if(i.output == null) continue;
+            Chain.unspentOutputs.remove(i.output.hash);
+        }
+
+        return true;
+    }
+
+    // Подсчет суммы всех входов
+    public float getInputsValue(){
+        float total = 0;
+        for (TransactionInput i : inputs) {
+            if(i.output == null) continue; // Если транзакция не найдена, то пропускаем её
+            total += i.output.value;
+        }
+        return total;
+    }
+
+    // Подсчёт суммы всех выходов
+    public float getOutputsValue(){
+        float total = 0;
+        for (TransactionOutput o : outputs) {
+            total += o.value;
+        }
+        return total;
+    }
 }

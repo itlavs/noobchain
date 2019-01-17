@@ -2,11 +2,14 @@ package club.plus1;
 
 import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Chain {
 
     private static ArrayList<Block> chain = new ArrayList<Block>();
-    public int difficulty = 5;
+    public static HashMap<String,TransactionOutput> unspentOutputs = new HashMap<String,TransactionOutput>();
+    public static int difficulty = 5;
+    public static float minimumTransaction = 0.1f;
 
     // Превращаем класс в одиночку(Singleton) с помощью On Demand Holder
     public static class ChainHolder {
