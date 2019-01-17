@@ -2,6 +2,7 @@ package club.plus1;
 
 import java.security.*;
 import java.security.spec.ECGenParameterSpec;
+import java.util.ArrayList;
 import java.util.Base64;
 
 public class Algoritms {
@@ -72,5 +73,24 @@ public class Algoritms {
         }catch(Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    // Добавляет транзакции в массив и возващает корень дерева Меркла
+    public static String getRoot(ArrayList<Transaction> transactions){
+        int count = transactions.size();
+        ArrayList<String> prevLayer = new ArrayList<String>();
+        for(Transaction transaction : transactions){
+            prevLayer.add(transaction.hash);
+        }
+        ArrayList<String> treeLayer = prevLayer;
+        while (count > 1){
+            treeLayer = new ArrayList<String>();
+            for (int i = 1; i < prevLayer.size(); i++){
+                treeLayer.add(SHA256(prevLayer.get(i-1) + prevLayer.get(i)));
+            }
+            count = treeLayer.size();
+            prevLayer = treeLayer;
+        }
+        return (treeLayer.size() == 1) ? treeLayer.get(0) : "";
     }
 }
