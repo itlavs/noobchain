@@ -14,7 +14,7 @@ public class TransactionOutput {
         this.to = to;
         this.value = value;
         this.parentHash = parentHash;
-        this.hash = Algoritms.SHA256(Algoritms.keyToString(to)+Float.toString(value) + parentHash);
+        this.hash = Algorithms.SHA256(Algorithms.keyToString(to)+Float.toString(value) + parentHash);
     }
 
     // Проверка, что монета пренадлежит этому кошельку

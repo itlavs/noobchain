@@ -15,7 +15,7 @@ public class Wallet {
 
     // Конструктор класса Wallet
     public Wallet() {
-        KeyPair keyPair = Algoritms.generateKeyPair();
+        KeyPair keyPair = Algorithms.generateKeyPair();
         privateKey = keyPair.getPrivate();
         publicKey = keyPair.getPublic();
     }
@@ -35,7 +35,7 @@ public class Wallet {
     }
 
     // Создание новой исходящей из кошелька транзакции
-    public Transaction sendFunds(PublicKey _from, float value){
+    public Transaction sendFunds(PublicKey _to, float value){
         if(getBalance() < value){
             System.out.println("#Недостаточно средств для отправки. Транзакция отменена.");
             return null;
@@ -50,7 +50,7 @@ public class Wallet {
             if(total > value) break;
         }
 
-        Transaction newTransaction = new Transaction(publicKey, _from, value, inputs);
+        Transaction newTransaction = new Transaction(publicKey, _to, value, inputs);
         newTransaction.generateSign(privateKey);
 
         for(TransactionInput input: inputs){

@@ -1,7 +1,5 @@
 package club.plus1;
 
-import com.google.gson.GsonBuilder;
-
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +15,7 @@ public class Block {
     private int nonce;      // основание для рассчёта хеша
 
     // Конструктор класса Block
-    public Block(String data, String prevHash) {
+    public Block(String prevHash) {
         this.prevHash = prevHash;
         this.timeStamp = new Date().getTime();
         this.hash = calculateHash();
@@ -25,12 +23,12 @@ public class Block {
 
     // Подсчет хеша блока с помощью SHA-256
     public String calculateHash() {
-        return Algoritms.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + root);
+        return Algorithms.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + root);
     }
 
     // Майнинг
     public String mineBlock(int difficulty) {
-        root = Algoritms.getRoot(transactions);
+        root = Algorithms.getRoot(transactions);
         String target = new String(new char[difficulty]).replace('\0', '0');
         while (!hash.substring(0, difficulty).equals(target)){
             nonce ++;
@@ -52,11 +50,5 @@ public class Block {
         transactions.add(transaction);
         System.out.println("Транзакция успешно добавлена в блок");
         return true;
-    }
-
-    // Получение блока в виде текста в формате Json
-    @Override
-    public String toString() {
-        return new GsonBuilder().setPrettyPrinting().create().toJson(this);
     }
 }

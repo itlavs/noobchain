@@ -29,22 +29,22 @@ public class Transaction {
     // Подсчет хеша транзакции с помощью SHA-256
     private String calculateHash() {
         sequence++;
-        return Algoritms.SHA256(Algoritms.keyToString(from)
-                + Algoritms.keyToString(to)
+        return Algorithms.SHA256(Algorithms.keyToString(from)
+                + Algorithms.keyToString(to)
                 + Float.toString(value)
                 + sequence);
     }
 
     // Получение подписи приватным ключом
     public void generateSign(PrivateKey privateKey){
-        String data = Algoritms.keyToString(from) + Algoritms.keyToString(to) + Float.toString(value);
-        sign = Algoritms.applySign(privateKey, data);
+        String data = Algorithms.keyToString(from) + Algorithms.keyToString(to) + Float.toString(value);
+        sign = Algorithms.applySign(privateKey, data);
     }
 
     // Проверка подписи публичным ключом отправителя
     public boolean verifySign(){
-        String data = Algoritms.keyToString(from) + Algoritms.keyToString(to) + Float.toString(value);
-        return Algoritms.verifySign(from, data, sign);
+        String data = Algorithms.keyToString(from) + Algorithms.keyToString(to) + Float.toString(value);
+        return Algorithms.verifySign(from, data, sign);
     }
 
     // Возвращает "истина" если можно создать транзакцию
@@ -68,8 +68,8 @@ public class Transaction {
         // Созание выходов транзакции
         float leftOver = getInputsValue() - value;
         hash = calculateHash();
-        outputs.add(new TransactionOutput(this.from, value, hash));
-        outputs.add(new TransactionOutput(this.to, leftOver, hash));
+        outputs.add(new TransactionOutput(this.to, value, hash));
+        outputs.add(new TransactionOutput(this.from, leftOver, hash));
 
         // Выходы транзакции добавляются в непотраченные
         for(TransactionOutput o : outputs){

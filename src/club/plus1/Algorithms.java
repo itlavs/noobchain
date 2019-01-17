@@ -5,7 +5,7 @@ import java.security.spec.ECGenParameterSpec;
 import java.util.ArrayList;
 import java.util.Base64;
 
-public class Algoritms {
+public class Algorithms {
 
     // Хеширование строки по алгоритму SHA256
     public static String SHA256(String input){
