@@ -11,7 +11,7 @@ public class Wallet {
 
     // Конструктор класса Wallet
     public Wallet() {
-        KeyPair keyPair = SecurityUtils.generateKeyPair();
+        KeyPair keyPair = Algoritms.generateKeyPair();
         privateKey = keyPair.getPrivate();
         publicKey = keyPair.getPublic();
     }

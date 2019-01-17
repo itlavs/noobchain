@@ -22,7 +22,7 @@ public class Block {
 
     // Подсчет хеша блока с помощью SHA-256
     public String calculateHash() {
-        return SecurityUtils.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
+        return Algoritms.SHA256(prevHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
     }
 
     // Майнинг

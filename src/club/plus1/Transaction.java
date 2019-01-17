@@ -29,22 +29,22 @@ public class Transaction {
     // Подсчет хеша транзакции с помощью SHA-256
     private String calculateHash() {
         sequence++;
-        return SecurityUtils.SHA256(SecurityUtils.keyToString(from)
-                + SecurityUtils.keyToString(to)
+        return Algoritms.SHA256(Algoritms.keyToString(from)
+                + Algoritms.keyToString(to)
                 + Float.toString(value)
                 + sequence);
     }
 
     // Получение подписи приватным ключом
     public void generateSign(PrivateKey privateKey){
-        String data = SecurityUtils.keyToString(from) + SecurityUtils.keyToString(to) + Float.toString(value);
-        sign = SecurityUtils.applySign(privateKey, data);
+        String data = Algoritms.keyToString(from) + Algoritms.keyToString(to) + Float.toString(value);
+        sign = Algoritms.applySign(privateKey, data);
     }
 
     // Проверка подписи публичным ключом отправителя
     public boolean verifySign(){
-        String data = SecurityUtils.keyToString(from) + SecurityUtils.keyToString(to) + Float.toString(value);
-        return SecurityUtils.verifySign(from, data, sign);
+        String data = Algoritms.keyToString(from) + Algoritms.keyToString(to) + Float.toString(value);
+        return Algoritms.verifySign(from, data, sign);
     }
 
 }
